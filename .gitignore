@@ -1,0 +1,4 @@
+*.suo
+*.user
+textDB/bin/
+textDB/obj/
