@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Web
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB", "TestDB\textDB.csproj", "{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB", "textDB\textDB.csproj", "{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

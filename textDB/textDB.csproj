@@ -8,8 +8,8 @@
     <ProjectGuid>{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestDB</RootNamespace>
-    <AssemblyName>TestDB</AssemblyName>
+    <RootNamespace>textDB</RootNamespace>
+    <AssemblyName>textDB</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bot\textDbConfig.cs" />
+    <Compile Include="Bot\textDbEngine.cs" />
+    <Compile Include="Common\DbConstants.cs" />
     <Compile Include="Notepad.cs" />
     <Compile Include="Store\Create.cs" />
     <Compile Include="Store\Read.cs" />
@@ -53,9 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="textDB.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
