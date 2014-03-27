@@ -1,8 +1,6 @@
 Welcome to TextDB
 =================
-TextDB is a simple {Save your data in text file}, open source object-relational mapper for the .NET framework. {It is not fully ready}
-
-
+TextDB is a simple {Save your data in text file}, open source object-relational mapper for the .NET framework. 
 
 Licenses
 --------
