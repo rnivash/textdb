@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TestDB.Common
+﻿namespace TextDB.Common
 {
-    internal class DbConstants
+    internal static class DbConstants
     {
+
         public const string DbExtension = ".db1";
 
         public const string CommaSeparator = "#comma#";

@@ -8,8 +8,8 @@
     <ProjectGuid>{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>textDB</RootNamespace>
-    <AssemblyName>textDB</AssemblyName>
+    <RootNamespace>TextDB</RootNamespace>
+    <AssemblyName>TextDB</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,15 +42,11 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bot\textDbConfig.cs" />
-    <Compile Include="Bot\textDbEngine.cs" />
+    <Compile Include="Bot\TextDbConfig.cs" />
+    <Compile Include="Bot\TextDbEngine.cs" />
     <Compile Include="Common\DbConstants.cs" />
     <Compile Include="Notepad.cs" />
     <Compile Include="Store\Create.cs" />

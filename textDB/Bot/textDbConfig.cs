@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TestDB.Bot
+﻿namespace TextDB.Bot
 {
-    internal class textDbConfig
+    internal class TextDbConfig
     {
         public string DbFilePath { get; set; }
     }

@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
-using TestDB.Bot;
-using TestDB.Common;
-using textDB.Store;
+using TextDB.Bot;
+using TextDB.Common;
+using TextDB.Store;
 
-namespace textDB
+namespace TextDB
 {
     /// <summary>
     /// Notepad
     /// </summary>
-    public class Notepad
+    public static class Notepad
     {
         /// <summary>
         /// To select/get all records in the table
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public IList<T> Select<T>() where T : new()
+        public static IList<T> Select<T>() where T : new()
         {
-            return this.Select<T>(null);
+            return Select<T>(null);
         }
 
         /// <summary>
@@ -29,15 +30,14 @@ namespace textDB
         /// <typeparam name="T"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IList<T> Select<T>(Predicate<T> filter) where T : new()
+        public static IList<T> Select<T>(Predicate<T> filter) where T : new()
         {
             Type tt = typeof(T);
 
             CreateDb(tt);
 
             List<T> list = new List<T>();
-            Read readdb = new Read();
-            List<string[]> mylist = readdb.Select(string.Concat(tt.Name, DbConstants.DbExtension));
+            List<string[]> mylist = Read.Select(string.Concat(tt.Name, DbConstants.DbExtension));
 
             PropertyInfo[] pinfo = tt.GetProperties();
             int i = 0;
@@ -47,7 +47,7 @@ namespace textDB
                 T obj = new T();
                 foreach (PropertyInfo pi in pinfo)
                 {
-                    pi.SetValue(obj, Convert.ChangeType(str[i++], pi.PropertyType), null);
+                    pi.SetValue(obj, Convert.ChangeType(str[i++], pi.PropertyType, CultureInfo.InvariantCulture), null);
                 }
                 if (filter == null)
                 {
@@ -67,10 +67,9 @@ namespace textDB
         /// <param name="tt"></param>
         private static void CreateDb(Type tt)
         {
-            if (!File.Exists(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
+            if (!File.Exists(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
             {
-                Create createdb = new Create();
-                createdb.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
+                Create.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
             }
         }
 
@@ -79,34 +78,31 @@ namespace textDB
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="object1"></param>
-        public void InsertValue<T>(T object1)
+        public static void InsertValue<T>(T object1)
         {
             Type tt = typeof(T);
-            if (!File.Exists(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
+            if (!File.Exists(FileName<T>()))
             {
-                Create createdb = new Create();
-                createdb.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
+                Create.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
             }
-            Write writedb = new Write();
             PropertyInfo[] pinfo = tt.GetProperties();
             List<string> result = new List<string>();
             foreach (PropertyInfo pi in pinfo)
             {
                 result.Add(pi.GetValue(object1, null).ToString());
             }
-            writedb.InsertValues(string.Concat(tt.Name, DbConstants.DbExtension), result.ToArray());
+            Write.InsertValues(string.Concat(tt.Name, DbConstants.DbExtension), result.ToArray());
         }
 
         /// <summary>
         /// It will drop the entire table.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void Delete<T>()
+        private static void Delete(string fileName)
         {
-            Type tt = typeof(T);
-            if (File.Exists(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
+            if (File.Exists(fileName))
             {
-                File.Delete(string.Concat(@"D:\db1\", tt.Name, DbConstants.DbExtension));
+                File.Delete(fileName);
             }
         }
 
@@ -115,13 +111,13 @@ namespace textDB
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="object1"></param>
-        public void Delete<T>(T object1) where T : new()
+        public static void Delete<T>(T object1) where T : new()
         {
             Type tt = typeof(T);
-            if (File.Exists(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
+            if (File.Exists(FileName<T>()))
             {
-                IList<T> mylist = this.Select<T>();
-                this.Delete<T>();
+                IList<T> mylist = Select<T>();
+                Delete(FileName<T>());
                 PropertyInfo[] pinfo = tt.GetProperties();
                 bool add = false;
                 foreach (T newT in mylist)
@@ -137,7 +133,7 @@ namespace textDB
                     }
                     if (add)
                     {
-                        this.InsertValue<T>(newT);
+                        InsertValue<T>(newT);
                     }
                 }
             }
@@ -148,21 +144,29 @@ namespace textDB
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filter"></param>
-        public void Delete<T>(Predicate<T> filter) where T : new()
+        public static void Delete<T>(Predicate<T> filter) where T : new()
         {
-            Type tt = typeof(T);
-            if (File.Exists(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
+            if (File.Exists(FileName<T>()))
             {
-                IList<T> mylist = this.Select<T>();
-                this.Delete<T>();
-                foreach (T newT in mylist)
+                IList<T> mylist = Select<T>();
+                Delete(FileName<T>());
+                if (filter != null)
                 {
-                    if (!filter.Invoke(newT))
+                    foreach (T newT in mylist)
                     {
-                        this.InsertValue<T>(newT);
+                        if (!filter.Invoke(newT))
+                        {
+                            InsertValue<T>(newT);
+                        }
                     }
                 }
             }
+        }
+
+        private static string FileName<T>()
+        {
+            Type tt = typeof(T);
+            return string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension);
         }
 
         /// <summary>
@@ -171,11 +175,11 @@ namespace textDB
         /// <typeparam name="T"></typeparam>
         /// <param name="object1"></param>
         /// <param name="filter"></param>
-        public void Update<T>(T object1, Predicate<T> filter) where T : new()
+        public static void Update<T>(T object1, Predicate<T> filter) where T : new()
         {
             Type tt = typeof(T);
-            IList<T> mylist = this.Select<T>(filter);
-            this.Delete<T>(filter);
+            IList<T> mylist = Select<T>(filter);
+            Delete<T>(filter);
             PropertyInfo[] pinfo = tt.GetProperties();
             foreach (T newT in mylist)
             {
@@ -183,7 +187,7 @@ namespace textDB
                 {
                     pi.SetValue(newT, pi.GetValue(object1, null), null);
                 }
-                this.InsertValue<T>(newT);
+                InsertValue<T>(newT);
             }
         }
     }

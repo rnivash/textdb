@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using TestDB.Bot;
+﻿using System.IO;
+using TextDB.Bot;
 
-namespace textDB.Store
+namespace TextDB.Store
 {
-    internal class Create
+    internal static class Create
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        internal bool CreateDb(string tableName)
+        internal static bool CreateDb(string tableName)
         {
-            DirectoryInfo dinfo = Directory.CreateDirectory(textDbEngine.Instance.CurrentConfig.DbFilePath);
+            DirectoryInfo dinfo = Directory.CreateDirectory(TextDbEngine.Instance.CurrentConfig.DbFilePath);
             if(dinfo.Exists){
-                FileStream fs = File.Create(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tableName));
+                FileStream fs = File.Create(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName));
                 fs.Close();
             }
             return true;

@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
-namespace TestDB.Bot
+namespace TextDB.Bot
 {
-    internal class textDbEngine
+    internal class TextDbEngine
     {
-        private static volatile textDbEngine _dbEgine;
+        private static volatile TextDbEngine _dbEgine;
 
         private static object syncRoot = new Object();
 
-        public textDbConfig CurrentConfig { get; private set; }
+        public TextDbConfig CurrentConfig { get; private set; }
 
-        private textDbEngine()
+        private TextDbEngine()
         {
             LoadConfig();
         }
 
-        public static textDbEngine Instance
+        public static TextDbEngine Instance
         {
             get
             {
@@ -30,7 +27,7 @@ namespace TestDB.Bot
                     lock (syncRoot)
                     {
                         if (_dbEgine == null)
-                            _dbEgine = new textDbEngine();
+                            _dbEgine = new TextDbEngine();
                     }
                 }
                 return _dbEgine;
@@ -39,7 +36,7 @@ namespace TestDB.Bot
 
         public void LoadConfig()
         {
-            CurrentConfig = new textDbConfig();
+            CurrentConfig = new TextDbConfig();
 
             if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["textdbpath"]))
             {

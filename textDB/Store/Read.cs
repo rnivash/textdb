@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using TestDB.Common;
-using TestDB.Bot;
+using System.Linq;
+using TextDB.Bot;
+using TextDB.Common;
 
-namespace textDB.Store
+namespace TextDB.Store
 {
     internal class Read
     {
@@ -15,19 +14,21 @@ namespace textDB.Store
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        internal List<string[]> Select(string tableName)
+        internal static List<string[]> Select(string tableName)
         {
             List<string[]> result = new List<string[]>();
-            FileStream fs = new FileStream(string.Concat(textDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Open);
-            StreamReader sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                result.Add(sr.ReadLine().Split(new string[] { DbConstants.Comma }, StringSplitOptions.None)
-                    .Select(item => item.Replace(DbConstants.CommaSeparator, DbConstants.Comma)).ToArray());
-            }
 
-            sr.Close();
-            fs.Close();
+            using (FileStream fs = new FileStream(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Open))
+            {
+                StreamReader sr = new StreamReader(fs);
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        result.Add(sr.ReadLine().Split(new string[] { DbConstants.Comma }, StringSplitOptions.None)
+                            .Select(item => item.Replace(DbConstants.CommaSeparator, DbConstants.Comma)).ToArray());
+                    }
+                }
+            }
             return result;
         }
     }
