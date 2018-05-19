@@ -20,7 +20,7 @@ namespace TextDB.Store
 
             using (FileStream fs = new FileStream(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Open))
             {
-                StreamReader sr = new StreamReader(fs);
+                using (StreamReader sr = new StreamReader(fs))
                 {
                     while (!sr.EndOfStream)
                     {

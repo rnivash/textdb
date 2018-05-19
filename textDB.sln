@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Web
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB", "textDB\textDB.csproj", "{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textdb.sample", "textdb.sample\textdb.sample.csproj", "{3704D51C-FE0B-4FD9-9740-929AEB687E9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +17,15 @@ Global
 		{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3704D51C-FE0B-4FD9-9740-929AEB687E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3704D51C-FE0B-4FD9-9740-929AEB687E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3704D51C-FE0B-4FD9-9740-929AEB687E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3704D51C-FE0B-4FD9-9740-929AEB687E9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83315632-3B39-470C-B9EE-48ED993A9343}
 	EndGlobalSection
 EndGlobal
