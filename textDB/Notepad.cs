@@ -106,6 +106,12 @@ namespace TextDB
             }
         }
 
+        public static void Delete<T>()
+        {
+            Type tt = typeof(T);
+            Delete(FileName<T>());
+        }
+
         /// <summary>
         /// To delete a record.
         /// </summary>
@@ -125,7 +131,7 @@ namespace TextDB
                     add = false;
                     foreach (PropertyInfo pi in pinfo)
                     {
-                        if (pi.GetValue(newT, null) != pi.GetValue(object1, null))
+                        if (!pi.GetValue(newT, null).Equals(pi.GetValue(object1, null)))
                         {
                             add = true;
                             break;
