@@ -1,10 +1,10 @@
-Welcome to TextDB
+TextDB
 =================
-TextDB is a simple {Save your data in text file}, open source object-relational mapper for the .NET framework. 
-
-Licenses
---------
-
-This software is distributed under the terms of the Free Software Foundation [Lesser GNU Public License (LGPL), version 2.1][D1] (see lgpl.txt).
+A simple object-relational mapper(ORM) framework to store your application data in text file using CSV format.
 
 [D1]: http://www.gnu.org/licenses/lgpl-2.1-standalone.html
+
+Nueget:
+=================
+
+[Get it from nuget](https://www.nuget.org/packages/TextDB/)

@@ -89,7 +89,7 @@ namespace TextDB
             List<string> result = new List<string>();
             foreach (PropertyInfo pi in pinfo)
             {
-                result.Add(pi.GetValue(object1, null).ToString());
+                result.Add(pi.GetValue(object1, null)?.ToString());
             }
             Write.InsertValues(string.Concat(tt.Name, DbConstants.DbExtension), result.ToArray());
         }

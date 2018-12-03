@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB", "textDB\textDB.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textdb.sample", "textdb.sample\textdb.sample.csproj", "{3704D51C-FE0B-4FD9-9740-929AEB687E9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F396AD9A-54AC-4DF6-8ACF-10E0780C3F88}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\nuget.exe = Tools\nuget.exe
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
