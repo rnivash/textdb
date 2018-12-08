@@ -48,6 +48,7 @@
     <Compile Include="Bot\TextDbConfig.cs" />
     <Compile Include="Bot\TextDbEngine.cs" />
     <Compile Include="Common\DbConstants.cs" />
+    <Compile Include="Common\TextDbMigration.cs" />
     <Compile Include="Notepad.cs" />
     <Compile Include="Store\Create.cs" />
     <Compile Include="Store\Read.cs" />

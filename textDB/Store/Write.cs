@@ -23,5 +23,19 @@ namespace TextDB.Store
                 }
             }
         }
+
+        internal static void InsertValues(string tableName, string[][] values)
+        {
+            using (FileStream fs = new FileStream(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Append))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    foreach(string[] lin in values)
+                    {
+                        sw.WriteLine(string.Join(",", lin.Select(item => item.Replace(DbConstants.Comma, DbConstants.CommaSeparator))));
+                    }
+                }
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace textdb.sample
+namespace textDB.Tests
 {
     public class Student
     {
