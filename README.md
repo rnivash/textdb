@@ -27,15 +27,15 @@ Notepad.Update<Student>(newentity, key => key.Name == newentity.Name);
 
 #### Migration Support
 ```
-Notepad.Migrate<Student>(delegate(System.Reflection.PropertyInfo pi, string[] s2) 
+Notepad.Migrate<Student>(delegate(System.Reflection.PropertyInfo pi, string[] originalRecord) 
 {
     if(pi.Name == "Name")
     {
-        return "Naresh";
+        return "Moon";
     }
     if (pi.Name == "Age")
     {
-        return s2[1];
+        return originalRecord[1];
     }               
     return "";
 }, new Guid("a17a9ea5-e91d-4238-98ff-4623780263af"));
