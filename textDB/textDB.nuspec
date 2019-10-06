@@ -9,8 +9,8 @@
     <licenseUrl>http://www.gnu.org/licenses/lgpl-2.1-standalone.html</licenseUrl>
     <projectUrl>https://github.com/rnivash/textdb</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Text Database</description>
+    <description>A simple database based on text file. No setup required.</description>
     <copyright>Copyright 2019</copyright>
-    <tags>Database</tags>
+    <tags>database,csv,inline,db,</tags>
   </metadata>
 </package>
