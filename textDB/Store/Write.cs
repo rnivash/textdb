@@ -1,38 +1,30 @@
 ﻿using System.IO;
 using System.Linq;
-using TextDB.Bot;
-using TextDB.Common;
 
 namespace TextDB.Store
 {
-    internal class Write
+    public class Write : BaseFile
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="values"></param>
-        internal static void InsertValues(string tableName, string[] values)
+        public static void WriteData(string tableName, string[] values)
         {
-            using (FileStream fs = new FileStream(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Append))
+            using (FileStream fs = new FileStream(GetFullName(tableName), FileMode.Append))
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    sw.Write(string.Join(",", values.Select(item => item.Replace(DbConstants.Comma, DbConstants.CommaSeparator))));
-                    sw.Write(sw.NewLine);
+                    sw.WriteLine(Encode(values));
                 }
             }
         }
 
-        internal static void InsertValues(string tableName, string[][] values)
+        public static void WriteData(string tableName, string[][] values)
         {
-            using (FileStream fs = new FileStream(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Append))
+            using (FileStream fs = new FileStream(GetFullName(tableName), FileMode.Append))
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     foreach(string[] lin in values)
                     {
-                        sw.WriteLine(string.Join(",", lin.Select(item => item.Replace(DbConstants.Comma, DbConstants.CommaSeparator))));
+                        sw.WriteLine(Encode(lin));
                     }
                 }
             }

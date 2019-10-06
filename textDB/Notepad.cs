@@ -1,122 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
-using TextDB.Bot;
-using TextDB.Common;
 using TextDB.Store;
+using System.Linq;
 
 namespace TextDB
 {
-    public static class Notepad
+    public class Notepad
     {
         public static IList<T> Select<T>() where T : new()
         {
-            return Select2<T>();
+            Type entityType = typeof(T);
+            List<T> records = new List<T>();
+
+            Create.InitFile(entityType.Name);
+
+            List<string[]> rawRecords = Read.ReadData(entityType.Name);
+
+            PropertyInfo[] propertyInfos = entityType.GetProperties();
+
+            if (rawRecords.Count <= 0 || propertyInfos.Length != rawRecords[0].Length)
+            {
+                return records;
+            }
+
+            foreach (string[] rawData in rawRecords)
+            {
+                int index = 0;
+                T data = new T();
+                foreach (PropertyInfo propertyInfo in propertyInfos)
+                {
+                    var cValue = Convert.ChangeType(rawData[index++], propertyInfo.PropertyType,
+                        CultureInfo.InvariantCulture);
+                    propertyInfo.SetValue(data, cValue, null);
+                }
+                records.Add(data);
+            }
+
+            return records;
         }
 
         public static IList<T> Select<T>(Predicate<T> filter) where T : new()
         {
-            return filter == null ? Select2<T>() : Select2<T>(filter);
+            var records = Select<T>();
+
+            return records
+                .Where(item => filter.Invoke(item))
+                .ToList();
         }
 
-        public static void Save<T>(T object1)
+        public static void InsertValue<T>(T entity)
         {
-            InsertValue(object1);
+            InsertValue<T>(new List<T>() { entity });
         }
 
-        public static void InsertValue<T>(T object1)
+        public static void InsertValue<T>(IList<T> entities)
         {
-            Type tt = typeof(T);
-            if (!File.Exists(FileName<T>()))
-            {
-                Create.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
-            }
-            PropertyInfo[] pinfo = tt.GetProperties();
-            List<string> result = new List<string>();
-            foreach (PropertyInfo pi in pinfo)
-            {
-                result.Add(pi.GetValue(object1, null)?.ToString());
-            }
-            Write.InsertValues(string.Concat(tt.Name, DbConstants.DbExtension), result.ToArray());
-        }
+            Type entityType = typeof(T);
 
-        public static void Save<T>(IList<T> object1)
-        {
-            InsertValue(object1);
-        }
+            Create.InitFile(entityType.Name);
 
-        public static void InsertValue<T>(IList<T> object1)
-        {
-            Type tt = typeof(T);
-            if (!File.Exists(FileName<T>()))
-            {
-                Create.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
-            }
-            PropertyInfo[] pinfo = tt.GetProperties();
-            string[][] result = new string[object1.Count][];
+            PropertyInfo[] propertyInfos = entityType.GetProperties();
+
+            string[][] records = new string[entities.Count][];
             int i = -1;
-            foreach (T entity in object1)
+            foreach (T entity in entities)
             {
                 int j = 0;
-                result[++i] = new string[pinfo.Length];
-                foreach (PropertyInfo pi in pinfo)
+                records[++i] = new string[propertyInfos.Length];
+                foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
-                    result[i][j++] = pi.GetValue(entity, null)?.ToString();
+                    records[i][j++] = propertyInfo.GetValue(entity, null)?.ToString();
                 }
             }
 
-            Write.InsertValues(string.Concat(tt.Name, DbConstants.DbExtension), result);
+            Write.WriteData(entityType.Name, records);
         }
 
         public static void Delete<T>()
         {
-            Delete(FileName<T>());
+            Type tt = typeof(T);
+            TextDB.Store.Delete.DeleteFile(tt.Name);
         }
 
         public static void Delete<T>(T object1) where T : new()
         {
             Type tt = typeof(T);
-            if (File.Exists(FileName<T>()))
+            IList<T> mylist = Select<T>();
+            TextDB.Store.Delete.DeleteFile(tt.Name);
+            PropertyInfo[] pinfo = tt.GetProperties();
+            
+            foreach (T newT in mylist)
             {
-                IList<T> mylist = Select2<T>();
-                Delete(FileName<T>());
-                PropertyInfo[] pinfo = tt.GetProperties();
                 bool add = false;
-                foreach (T newT in mylist)
+                foreach (PropertyInfo pi in pinfo)
                 {
-                    add = false;
-                    foreach (PropertyInfo pi in pinfo)
+                    if (!pi.GetValue(newT, null).Equals(pi.GetValue(object1, null)))
                     {
-                        if (!pi.GetValue(newT, null).Equals(pi.GetValue(object1, null)))
-                        {
-                            add = true;
-                            break;
-                        }
+                        add = true;
+                        break;
                     }
-                    if (add)
-                    {
-                        InsertValue<T>(newT);
-                    }
+                }
+                if (add)
+                {
+                    InsertValue<T>(newT);
                 }
             }
         }
 
         public static void Delete<T>(Predicate<T> filter) where T : new()
         {
-            if (File.Exists(FileName<T>()))
+            Type tt = typeof(T);
+            IList<T> mylist = Select<T>();
+            TextDB.Store.Delete.DeleteFile(tt.Name);
+            if (filter != null)
             {
-                IList<T> mylist = Select2<T>();
-                Delete(FileName<T>());
-                if (filter != null)
+                foreach (T newT in mylist)
                 {
-                    foreach (T newT in mylist)
+                    if (!filter.Invoke(newT))
                     {
-                        if (!filter.Invoke(newT))
-                        {
-                            InsertValue<T>(newT);
-                        }
+                        InsertValue<T>(newT);
                     }
                 }
             }
@@ -125,7 +129,7 @@ namespace TextDB
         public static void Update<T>(T object1, Predicate<T> filter) where T : new()
         {
             Type tt = typeof(T);
-            IList<T> mylist = Select2<T>(filter);
+            IList<T> mylist = Select<T>(filter);
             Delete<T>(filter);
             PropertyInfo[] pinfo = tt.GetProperties();
             foreach (T newT in mylist)
@@ -141,7 +145,7 @@ namespace TextDB
         public static IList<T> Migrate<T>(Func<PropertyInfo, string[], object> m2, Guid mid) where T : new()
         {
             //0. Check migration
-            var li = Select2<TextDbMigration>(itm => itm.MigrationId == mid.ToString());
+            var li = Select<TextDbMigration>(itm => itm.MigrationId == mid.ToString());
             if (li.Count != 0)
             {
                 return null;
@@ -151,9 +155,9 @@ namespace TextDB
             // 1. load raw data
             Type entityType = typeof(T); List<T> list = new List<T>();
 
-            CreateDb(entityType);
+            Create.InitFile(entityType.Name);
 
-            List<string[]> mylist = Read.Select(string.Concat(entityType.Name, DbConstants.DbExtension));
+            List<string[]> mylist = Read.ReadData(entityType.Name);
 
             PropertyInfo[] pinfo = entityType.GetProperties();
 
@@ -179,91 +183,6 @@ namespace TextDB
             }
 
             return list;
-        }
-
-        private static IList<T> Select2<T>() where T : new()
-        {
-            Type entityType = typeof(T); int i; List<T> list = new List<T>();
-
-            CreateDb(entityType);
-
-            List<string[]> mylist = Read.Select(string.Concat(entityType.Name, DbConstants.DbExtension));
-
-            PropertyInfo[] pinfo = entityType.GetProperties();
-
-            if (mylist.Count <= 0 || pinfo.Length != mylist[0].Length)
-            {
-                //Data migration is required.
-                return list;
-            }
-
-            foreach (string[] str in mylist)
-            {
-                i = 0;
-                T obj = new T();
-                foreach (PropertyInfo pi in pinfo)
-                {
-                    pi.SetValue(obj, Convert.ChangeType(str[i++], pi.PropertyType, CultureInfo.InvariantCulture), null);
-                }
-                list.Add(obj);
-            }
-
-            return list;
-        }
-
-        private static IList<T> Select2<T>(Predicate<T> filter) where T : new()
-        {
-            Type entityType = typeof(T); int i; List<T> list = new List<T>();
-
-            CreateDb(entityType);
-
-            List<string[]> mylist = Read.Select(string.Concat(entityType.Name, DbConstants.DbExtension));
-
-            PropertyInfo[] pinfo = entityType.GetProperties();
-
-            if (mylist.Count <= 0 || pinfo.Length != mylist[0].Length)
-            {
-                //Data migration is required.
-                return list;
-            }
-
-            foreach (string[] str in mylist)
-            {
-                i = 0;
-                T obj = new T();
-                foreach (PropertyInfo pi in pinfo)
-                {
-                    pi.SetValue(obj, Convert.ChangeType(str[i++], pi.PropertyType, CultureInfo.InvariantCulture), null);
-                }
-                if (filter.Invoke(obj))
-                {
-                    list.Add(obj);
-                }
-            }
-
-            return list;
-        }
-
-        private static void Delete(string fileName)
-        {
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
-        }
-
-        private static string FileName<T>()
-        {
-            Type tt = typeof(T);
-            return string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension);
-        }
-
-        private static void CreateDb(Type tt)
-        {
-            if (!File.Exists(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tt.Name, DbConstants.DbExtension)))
-            {
-                Create.CreateDb(string.Concat(tt.Name, DbConstants.DbExtension));
-            }
         }
     }
 }

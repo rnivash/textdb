@@ -31,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -45,12 +46,14 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bot\TextDbConfig.cs" />
-    <Compile Include="Bot\TextDbEngine.cs" />
-    <Compile Include="Common\DbConstants.cs" />
-    <Compile Include="Common\TextDbMigration.cs" />
+    <Compile Include="Store\Settings.cs" />
+    <Compile Include="Store\Engine.cs" />
+    <Compile Include="Store\DbConstants.cs" />
+    <Compile Include="Store\TextDbMigration.cs" />
     <Compile Include="Notepad.cs" />
     <Compile Include="Store\Create.cs" />
+    <Compile Include="Store\BaseFile.cs" />
+    <Compile Include="Store\Delete.cs" />
     <Compile Include="Store\Read.cs" />
     <Compile Include="Store\Write.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +62,7 @@
     <None Include="textDB.nuspec" />
     <None Include="textDB.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

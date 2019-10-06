@@ -56,6 +56,62 @@ namespace textDB.Tests
         }
 
         [TestMethod]
+        public void Delete_Specific_Entity_Test()
+        {
+            var entity1 = new Student
+            {
+                Name = "Darshan",
+                Age = 13,
+                Section = "A",
+                IsActive = true
+            };
+            var entity2 = new Student
+            {
+                Name = "Nivash",
+                Age = 34,
+                Section = "B",
+                IsActive = true
+            };
+
+            Notepad.InsertValue<Student>(new List<Student> { entity1, entity2 });
+
+            Notepad.Delete<Student>(entity1);
+
+            var list = Notepad.Select<Student>();
+
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual("Nivash", list[0].Name);
+        }
+
+        [TestMethod]
+        public void Delete_Entity_Filter_Test()
+        {
+            var entity1 = new Student
+            {
+                Name = "Darshan",
+                Age = 13,
+                Section = "A",
+                IsActive = true
+            };
+            var entity2 = new Student
+            {
+                Name = "Nivash",
+                Age = 34,
+                Section = "B",
+                IsActive = true
+            };
+
+            Notepad.InsertValue<Student>(new List<Student> { entity1, entity2 });
+
+            Notepad.Delete<Student>(std => std.Name == "Nivash" && std.Age == 34);
+
+            var list = Notepad.Select<Student>();
+
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual("Darshan", list[0].Name);
+        }
+
+        [TestMethod]
         public void Update_Entity_Test()
         {
             var entity1 = new Student

@@ -1,34 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using TextDB.Bot;
-using TextDB.Common;
 
 namespace TextDB.Store
 {
-    internal class Read
+    public class Read : BaseFile
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <returns></returns>
-        internal static List<string[]> Select(string tableName)
+        public static List<string[]> ReadData(string tableName)
         {
             List<string[]> result = new List<string[]>();
 
-            using (FileStream fs = new FileStream(string.Concat(TextDbEngine.Instance.CurrentConfig.DbFilePath, tableName), FileMode.Open))
+            using (FileStream fs = new FileStream(GetFullName(tableName), FileMode.Open))
             {
                 using (StreamReader sr = new StreamReader(fs))
                 {
                     while (!sr.EndOfStream)
                     {
-                        result.Add(sr.ReadLine().Split(new string[] { DbConstants.Comma }, StringSplitOptions.None)
-                            .Select(item => item.Replace(DbConstants.CommaSeparator, DbConstants.Comma)).ToArray());
+                        result.Add(Decode(sr.ReadLine()));
                     }
                 }
             }
+
             return result;
         }
     }

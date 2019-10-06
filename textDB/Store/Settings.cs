@@ -1,6 +1,6 @@
-﻿namespace TextDB.Bot
+﻿namespace TextDB.Store
 {
-    internal class TextDbConfig
+    internal class Settings
     {
         public string DbFilePath { get; set; }
     }

@@ -3,22 +3,22 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 
-namespace TextDB.Bot
+namespace TextDB.Store
 {
-    internal class TextDbEngine
+    internal class Engine
     {
-        private static volatile TextDbEngine _dbEgine;
+        private static volatile Engine _dbEgine;
 
         private static object syncRoot = new Object();
 
-        public TextDbConfig CurrentConfig { get; private set; }
+        public Settings CurrentConfig { get; private set; }
 
-        private TextDbEngine()
+        private Engine()
         {
             LoadConfig();
         }
 
-        public static TextDbEngine Instance
+        public static Engine Instance
         {
             get
             {
@@ -27,7 +27,7 @@ namespace TextDB.Bot
                     lock (syncRoot)
                     {
                         if (_dbEgine == null)
-                            _dbEgine = new TextDbEngine();
+                            _dbEgine = new Engine();
                     }
                 }
                 return _dbEgine;
@@ -36,7 +36,7 @@ namespace TextDB.Bot
 
         public void LoadConfig()
         {
-            CurrentConfig = new TextDbConfig();
+            CurrentConfig = new Settings();
 
             if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["textdbpath"]))
             {
