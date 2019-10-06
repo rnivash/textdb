@@ -8,19 +8,19 @@ namespace TextDB.Store
         public static string GetFullName(string typeName)
         {
             return string.Concat(Engine.Instance.Config.FilePath, 
-                string.Concat(typeName, DbConstants.DbExtension));
+                string.Concat(typeName, Constants.DbExtension));
         }
 
         public static string Encode(string[] values)
         {
-            return string.Join(DbConstants.Comma, values.Select(item => item
-            .Replace(DbConstants.Comma, DbConstants.CommaSeparator)));
+            return string.Join(Constants.Comma, values.Select(item => item
+            .Replace(Constants.Comma, Constants.CommaSeparator)));
         }
 
         public static string[] Decode(string value)
         {
-            return value.Split(new string[] { DbConstants.Comma }, StringSplitOptions.None)
-                            .Select(item => item.Replace(DbConstants.CommaSeparator, DbConstants.Comma))
+            return value.Split(new string[] { Constants.Comma }, StringSplitOptions.None)
+                            .Select(item => item.Replace(Constants.CommaSeparator, Constants.Comma))
                             .ToArray();
         }
     }

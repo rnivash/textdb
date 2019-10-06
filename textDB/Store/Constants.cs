@@ -1,6 +1,6 @@
 ﻿namespace TextDB.Store
 {
-    internal static class DbConstants
+    internal static class Constants
     {
 
         public const string DbExtension = ".db1";
