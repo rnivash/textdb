@@ -2,6 +2,6 @@
 {
     internal class Settings
     {
-        public string DbFilePath { get; set; }
+        public string FilePath { get; set; }
     }
 }

@@ -9,12 +9,8 @@ namespace TextDB.Store
         {
             if (!File.Exists(GetFullName(tableName)))
             {
-                DirectoryInfo dinfo = Directory.CreateDirectory(Engine.Instance.CurrentConfig.DbFilePath);
-                if (dinfo.Exists)
-                {
-                    FileStream fs = File.Create(GetFullName(tableName));
-                    fs.Close();
-                }
+                FileStream fs = File.Create(GetFullName(tableName));
+                fs.Close();
             }
         }
     }

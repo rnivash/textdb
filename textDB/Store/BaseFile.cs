@@ -7,7 +7,7 @@ namespace TextDB.Store
     {
         public static string GetFullName(string typeName)
         {
-            return string.Concat(Engine.Instance.CurrentConfig.DbFilePath, 
+            return string.Concat(Engine.Instance.Config.FilePath, 
                 string.Concat(typeName, DbConstants.DbExtension));
         }
 
