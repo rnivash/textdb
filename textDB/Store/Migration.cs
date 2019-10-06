@@ -5,8 +5,8 @@ using System.Text;
 
 namespace TextDB.Store
 {
-    internal class TextDbMigration
+    internal class Migration
     {
-        public string MigrationId { get; set; }
+        public string Id { get; set; }
     }
 }

@@ -13,13 +13,13 @@ namespace TextDB
         public static IList<T> Migrate<T>(Func<PropertyInfo, string[], object> m2, Guid mid) where T : new()
         {
             //0. Check migration
-            var li = Select<TextDbMigration>(itm => itm.MigrationId == mid.ToString());
+            var li = Select<Migration>(itm => itm.Id == mid.ToString());
             if (li.Count != 0)
             {
                 return null;
             }
-            var mi = new TextDbMigration { MigrationId = mid.ToString() };
-            InsertValue<TextDbMigration>(mi);
+            var mi = new Migration { Id = mid.ToString() };
+            InsertValue<Migration>(mi);
             // 1. load raw data
             Type entityType = typeof(T); List<T> list = new List<T>();
 
