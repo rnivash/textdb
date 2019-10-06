@@ -6,7 +6,6 @@
     <title>TextDB</title>
     <authors>rnivash</authors>
     <owners>rnivash</owners>
-    <licenseUrl>http://www.gnu.org/licenses/lgpl-2.1-standalone.html</licenseUrl>
     <projectUrl>https://github.com/rnivash/textdb</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A simple database based on text file. No setup is required.</description>
