@@ -1,10 +1,16 @@
-TextDB
-=================
-A simple object-relational mapper(ORM) framework to store your application data in text file using CSV format.
+## TextDB
+A simple database based on text file. No setup is required.
 
-[D1]: http://www.gnu.org/licenses/lgpl-2.1-standalone.html
-
-Nueget:
-=================
-
+Nuget:
 [Get it from nuget](https://www.nuget.org/packages/TextDB/)
+
+### Insert records into databse
+```
+Notepad.InsertValue(entity1);
+```
+
+### Read it from database 
+```
+var studentList = Notepad.Select<Student>();
+var student = Notepad.Select<Student>(stud => stud.Name == "Nivash");
+```
