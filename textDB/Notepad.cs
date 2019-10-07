@@ -79,18 +79,18 @@ namespace TextDB
 
         public static void Delete<T>()
         {
-            Type tt = typeof(T);
-            TextDB.Store.Delete.DeleteFile(tt.Name);
+            Type entityType = typeof(T);
+            TextDB.Store.Delete.DeleteFile(entityType.Name);
         }
 
         public static void Delete<T>(T object1) where T : new()
         {
-            Type tt = typeof(T);
-            IList<T> mylist = Select<T>();
-            TextDB.Store.Delete.DeleteFile(tt.Name);
-            PropertyInfo[] pinfo = tt.GetProperties();
+            Type entityType = typeof(T);
+            IList<T> deleteList = Select<T>();
+            TextDB.Store.Delete.DeleteFile(entityType.Name);
+            PropertyInfo[] pinfo = entityType.GetProperties();
             
-            foreach (T newT in mylist)
+            foreach (T newT in deleteList)
             {
                 bool add = false;
                 foreach (PropertyInfo pi in pinfo)
@@ -110,12 +110,12 @@ namespace TextDB
 
         public static void Delete<T>(Predicate<T> filter) where T : new()
         {
-            Type tt = typeof(T);
-            IList<T> mylist = Select<T>();
-            TextDB.Store.Delete.DeleteFile(tt.Name);
+            Type entityType = typeof(T);
+            IList<T> deleteList = Select<T>();
+            TextDB.Store.Delete.DeleteFile(entityType.Name);
             if (filter != null)
             {
-                foreach (T newT in mylist)
+                foreach (T newT in deleteList)
                 {
                     if (!filter.Invoke(newT))
                     {
@@ -127,11 +127,11 @@ namespace TextDB
 
         public static void Update<T>(T object1, Predicate<T> filter) where T : new()
         {
-            Type tt = typeof(T);
-            IList<T> mylist = Select<T>(filter);
+            Type entityType = typeof(T);
+            IList<T> updateList = Select<T>(filter);
             Delete<T>(filter);
-            PropertyInfo[] pinfo = tt.GetProperties();
-            foreach (T newT in mylist)
+            PropertyInfo[] pinfo = entityType.GetProperties();
+            foreach (T newT in updateList)
             {
                 foreach (PropertyInfo pi in pinfo)
                 {
