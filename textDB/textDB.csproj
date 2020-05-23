@@ -46,11 +46,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notepad.Migration.cs" />
     <Compile Include="Store\Settings.cs" />
     <Compile Include="Store\Engine.cs" />
     <Compile Include="Store\Constants.cs" />
-    <Compile Include="Store\Migration.cs" />
     <Compile Include="Notepad.cs" />
     <Compile Include="Store\Create.cs" />
     <Compile Include="Store\BaseFile.cs" />
