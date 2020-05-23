@@ -46,15 +46,15 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Store\Settings.cs" />
-    <Compile Include="Store\Engine.cs" />
-    <Compile Include="Store\Constants.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Notepad.cs" />
-    <Compile Include="Store\Create.cs" />
-    <Compile Include="Store\BaseFile.cs" />
-    <Compile Include="Store\Delete.cs" />
-    <Compile Include="Store\Read.cs" />
-    <Compile Include="Store\Write.cs" />
+    <Compile Include="Create.cs" />
+    <Compile Include="BaseFile.cs" />
+    <Compile Include="Delete.cs" />
+    <Compile Include="Read.cs" />
+    <Compile Include="Write.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

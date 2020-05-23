@@ -1,4 +1,4 @@
-﻿namespace TextDB.Store
+﻿namespace TextDB
 {
     internal static class Constants
     {

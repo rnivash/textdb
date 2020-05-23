@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using TextDB.Store;
 
 namespace TextDB
 {
-    public partial class Notepad
+    public static class Notepad
     {
         public static IList<T> Select<T>() where T : new()
         {
             Type entityType = typeof(T);
-            Create.InitFile(entityType.Name);
+
+            Create.InitFile(entityType);
 
             List<T> records = new List<T>();
 
-            List<string[]> rawRecords = Read.ReadData(entityType.Name);
+            Collection<string[]> rawRecords = Read.ReadData(entityType);
 
             PropertyInfo[] propertyInfos = entityType.GetProperties();
 
@@ -57,8 +58,13 @@ namespace TextDB
 
         public static void InsertValue<T>(IList<T> entities)
         {
+            if (entities is null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
             Type entityType = typeof(T);
-            Create.InitFile(entityType.Name);
+            Create.InitFile(entityType);
 
             PropertyInfo[] propertyInfos = entityType.GetProperties();
 
@@ -74,20 +80,20 @@ namespace TextDB
                 }
             }
 
-            Write.WriteData(entityType.Name, records);
+            Write.WriteData(entityType, records);
         }
 
         public static void Delete<T>()
         {
             Type entityType = typeof(T);
-            TextDB.Store.Delete.DeleteFile(entityType.Name);
+            TextDB.Delete.DeleteFile(entityType);
         }
 
         public static void Delete<T>(T object1) where T : new()
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
-            TextDB.Store.Delete.DeleteFile(entityType.Name);
+            TextDB.Delete.DeleteFile(entityType);
             PropertyInfo[] pinfo = entityType.GetProperties();
             
             foreach (T newT in deleteList)
@@ -112,7 +118,7 @@ namespace TextDB
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
-            TextDB.Store.Delete.DeleteFile(entityType.Name);
+            TextDB.Delete.DeleteFile(entityType);
             if (filter != null)
             {
                 foreach (T newT in deleteList)

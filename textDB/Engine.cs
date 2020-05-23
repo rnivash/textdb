@@ -3,7 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 
-namespace TextDB.Store
+namespace TextDB
 {
     sealed class Engine
     {
