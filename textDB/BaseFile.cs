@@ -40,8 +40,7 @@ namespace TextDB
 
         public static string Encode(string[] values)
         {
-            return string.Join(Comma, values.Select(item => item
-            .Replace(Comma, CommaSeparator)));
+            return string.Join(Comma, values.Select(item => item?.Replace(Comma, CommaSeparator)));
         }
 
         public static string[] Decode(string value)

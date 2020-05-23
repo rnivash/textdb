@@ -34,6 +34,27 @@ namespace textDB.Tests
         }
 
         [TestMethod]
+        public void InsertEntityWithNullValueTest()
+        {
+            var entity1 = new Student
+            {
+                Name = "Darshan",
+                Age = 13,
+                Section = null,
+                CreatedOn = DateTime.Now,
+                IsActive = true
+            };
+
+            Notepad.InsertValue(entity1);
+
+            var list = Notepad.Select<Student>();
+
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual("Darshan", list[0].Name);
+            Assert.AreEqual("", list[0].Section);
+        }
+
+        [TestMethod]
         public void UpdateEntityTest()
         {
             var entity1 = new Student
