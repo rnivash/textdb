@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB", "textDB\textDB.csproj", "{7679E3A2-6A2C-42E2-9318-8AD3FCA277CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB.Tests", "textdb.sample\textDB.Tests.csproj", "{3704D51C-FE0B-4FD9-9740-929AEB687E9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDB.Tests", "textDB.Tests\textDB.Tests.csproj", "{3704D51C-FE0B-4FD9-9740-929AEB687E9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
