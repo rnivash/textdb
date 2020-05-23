@@ -6,6 +6,12 @@ namespace TextDB
 {
     public static class BaseFile
     {
+        public const string DbExtension = ".db1";
+
+        public const string CommaSeparator = "#comma#";
+
+        public const string Comma = ",";
+
         public static int GetId(Type type)
         {
             if (type is null)
@@ -29,13 +35,13 @@ namespace TextDB
                 Engine.Instance.Config.FilePath,
                 entityType.Name,
                 GetId(entityType),
-                Constants.DbExtension);
+                DbExtension);
         }
 
         public static string Encode(string[] values)
         {
-            return string.Join(Constants.Comma, values.Select(item => item
-            .Replace(Constants.Comma, Constants.CommaSeparator)));
+            return string.Join(Comma, values.Select(item => item
+            .Replace(Comma, CommaSeparator)));
         }
 
         public static string[] Decode(string value)
@@ -45,8 +51,8 @@ namespace TextDB
                 throw new ArgumentNullException(nameof(value));
             }
 
-            return value.Split(new string[] { Constants.Comma }, StringSplitOptions.None)
-                            .Select(item => item.Replace(Constants.CommaSeparator, Constants.Comma))
+            return value.Split(new string[] { Comma }, StringSplitOptions.None)
+                            .Select(item => item.Replace(CommaSeparator, Comma))
                             .ToArray();
         }
     }

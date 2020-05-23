@@ -68,16 +68,16 @@ namespace TextDB
 
             PropertyInfo[] propertyInfos = entityType.GetProperties();
 
-            string[][] records = new string[entities.Count][];
-            int i = -1;
+            List<string[]> records = new List<string[]>();
             foreach (T entity in entities)
             {
                 int j = 0;
-                records[++i] = new string[propertyInfos.Length];
+                string[] row = new string[propertyInfos.Length];
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
-                    records[i][j++] = propertyInfo.GetValue(entity, null)?.ToString();
+                    row[j++] = propertyInfo.GetValue(entity, null)?.ToString();
                 }
+                records.Add(row);
             }
 
             Write.WriteData(entityType, records);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace TextDB
@@ -25,8 +26,13 @@ namespace TextDB
             
         }
 
-        public static void WriteData(Type entityType, string[][] values)
+        public static void WriteData(Type entityType, IList<string[]> values)
         {
+            if (values is null)
+            {
+                throw new ArgumentNullException(nameof(values));
+            }
+
             FileStream fs = null;
             try
             {
