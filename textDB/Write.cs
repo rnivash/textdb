@@ -11,7 +11,7 @@ namespace TextDB
             FileStream fs = null;
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append);
+                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.ReadWrite, FileShare.ReadWrite);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     fs = null;

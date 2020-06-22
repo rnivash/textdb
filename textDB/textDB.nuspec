@@ -1,15 +1,19 @@
-<?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>TextDB</id>   
-    <version>2.1.7218</version>
-    <title>TextDB</title>
-    <authors>rnivash</authors>
-    <owners>rnivash</owners>
-    <projectUrl>https://github.com/rnivash/textdb</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A simple database based on text file. No setup is required.</description>
-    <copyright>Copyright 2019</copyright>
-    <tags>database,csv,inline,db,</tags>
-  </metadata>
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <!-- Required elements-->
+        <id>TextDB</id>
+        <version>3.2.0</version>
+        <description>A simple database which writes data into text file. No setup or confiuration is required.</description>
+        <authors>Nivash Ramachandran</authors>
+
+        <!-- Optional elements -->
+        <projectUrl>https://github.com/rnivash/textdb</projectUrl>
+        <license type="expression">MIT</license>
+        <tags>database,csv,inline,db</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.7.2" />
+        </dependencies>
+    </metadata>
+    <!-- Optional 'files' node -->
 </package>
