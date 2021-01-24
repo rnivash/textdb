@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace textDb.Core
+namespace textDb
 {
     public static class Write
     {

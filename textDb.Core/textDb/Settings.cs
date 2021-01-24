@@ -1,4 +1,4 @@
-﻿namespace textDb.Core
+﻿namespace textDb
 {
     internal class Settings
     {

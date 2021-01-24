@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace textDb.Core
+namespace textDb
 {
     public static class Notepad
     {
@@ -86,14 +86,14 @@ namespace textDb.Core
         public static void Delete<T>()
         {
             Type entityType = typeof(T);
-            Core.Delete.DeleteFile(entityType);
+            textDb.Delete.DeleteFile(entityType);
         }
 
         public static void Delete<T>(T object1) where T : new()
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
-            Core.Delete.DeleteFile(entityType);
+            textDb.Delete.DeleteFile(entityType);
             PropertyInfo[] pinfo = entityType.GetProperties();
             
             foreach (T newT in deleteList)
@@ -118,7 +118,7 @@ namespace textDb.Core
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
-            Core.Delete.DeleteFile(entityType);
+            textDb.Delete.DeleteFile(entityType);
             if (filter != null)
             {
                 foreach (T newT in deleteList)

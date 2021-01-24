@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace textDb.Core
+namespace textDb
 {
     public static class Read
     {

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace textDb.Core
+namespace textDb
 {
     public static class BaseFile
     {
