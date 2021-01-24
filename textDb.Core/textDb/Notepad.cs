@@ -75,7 +75,12 @@ namespace textDb
                 string[] row = new string[propertyInfos.Length];
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
-                    row[j++] = propertyInfo.GetValue(entity, null)?.ToString();
+                    if(propertyInfo.PropertyType == typeof(DateTime) ){
+                        row[j++] =  ((DateTime)propertyInfo.GetValue(entity, null)).ToString("MM/dd/yyyy HH:mm:ss");
+                    }
+                    else{
+                        row[j++] = propertyInfo.GetValue(entity, null)?.ToString();
+                    }
                 }
                 records.Add(row);
             }
