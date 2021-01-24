@@ -47,12 +47,8 @@ namespace textDb
                 throw new ArgumentNullException(nameof(entityType));
             }
 
-            return string.Format(CultureInfo.InvariantCulture,
-                "{0}{1}.{2}{3}",
-                Engine.Instance.Config.FilePath,
-                entityType.Name,
-                GetId(entityType),
-                DbExtension);
+            return System.IO.Path.Combine(Engine.Instance.Config.FilePath, string.Format(CultureInfo.InvariantCulture,
+                "{0}.{1}{2}", entityType.Name, GetId(entityType), DbExtension));
         }
 
         public static string Encode(string[] values)

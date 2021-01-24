@@ -76,7 +76,7 @@ namespace textDb
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
                     if(propertyInfo.PropertyType == typeof(DateTime) ){
-                        row[j++] =  ((DateTime)propertyInfo.GetValue(entity, null)).ToString("MM/dd/yyyy HH:mm:ss");
+                        row[j++] =  ((DateTime)propertyInfo.GetValue(entity, null)).ToString("MM/dd/yyyy HH:mm:ss.fffffffzzz");
                     }
                     else{
                         row[j++] = propertyInfo.GetValue(entity, null)?.ToString();

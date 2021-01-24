@@ -14,7 +14,7 @@ namespace textDb
         {
             Config = new Settings
             {
-                FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\textdb\\"
+                FilePath =  System.IO.Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "textdb")
             };
             Directory.CreateDirectory(Config.FilePath);
         }

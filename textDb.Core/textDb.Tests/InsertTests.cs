@@ -4,8 +4,12 @@ using textDb;
 
 namespace textDb.Tests
 {
-    public class UnitTest1
+    public class InsertTests
     {
+        public InsertTests(){
+            Notepad.Delete<Student>();
+        }
+
         [Fact]
         public void InsertEntityTest()
         {
@@ -25,6 +29,10 @@ namespace textDb.Tests
 
             Assert.Equal(1, list.Count);
             Assert.Equal("Darshan", list[0].Name);
+            Assert.Equal(13, list[0].Age);
+            Assert.Equal("A", list[0].Section);
+            Assert.Equal(entity1.CreatedOn, list[0].CreatedOn);
+            Assert.Equal(true, list[0].IsActive);
 
         }
     }
