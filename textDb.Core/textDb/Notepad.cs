@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using textDb.Base;
 
 namespace textDb
 {
@@ -51,12 +52,12 @@ namespace textDb
                 .ToList();
         }
 
-        public static void InsertValue<T>(T entity)
+        public static void Insert<T>(T entity)
         {
-            InsertValue<T>(new List<T>() { entity });
+            Insert<T>(new List<T>() { entity });
         }
 
-        public static void InsertValue<T>(IList<T> entities)
+        public static void Insert<T>(IList<T> entities)
         {
             if (entities is null)
             {
@@ -91,14 +92,14 @@ namespace textDb
         public static void Delete<T>()
         {
             Type entityType = typeof(T);
-            textDb.Delete.DeleteFile(entityType);
+            Base.Delete.DeleteFile(entityType);
         }
 
         public static void Delete<T>(T object1) where T : new()
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
-            textDb.Delete.DeleteFile(entityType);
+            Base.Delete.DeleteFile(entityType);
             PropertyInfo[] pinfo = entityType.GetProperties();
             
             foreach (T newT in deleteList)
@@ -114,7 +115,7 @@ namespace textDb
                 }
                 if (add)
                 {
-                    InsertValue(newT);
+                    Insert(newT);
                 }
             }
         }
@@ -123,14 +124,14 @@ namespace textDb
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
-            textDb.Delete.DeleteFile(entityType);
+            Base.Delete.DeleteFile(entityType);
             if (filter != null)
             {
                 foreach (T newT in deleteList)
                 {
                     if (!filter.Invoke(newT))
                     {
-                        InsertValue(newT);
+                        Insert(newT);
                     }
                 }
             }
@@ -148,7 +149,7 @@ namespace textDb
                 {
                     pi.SetValue(newT, pi.GetValue(object1, null), null);
                 }
-                InsertValue(newT);
+                Insert(newT);
             }
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace textDb
+namespace textDb.Base
 {
     public static class Write
     {
@@ -11,7 +11,7 @@ namespace textDb
             FileStream fs = null;
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.ReadWrite, FileShare.ReadWrite);
+                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     fs = null;
@@ -36,7 +36,7 @@ namespace textDb
             FileStream fs = null;
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append);
+                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     fs = null;

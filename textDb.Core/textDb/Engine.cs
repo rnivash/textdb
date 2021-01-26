@@ -19,7 +19,7 @@ namespace textDb
             Directory.CreateDirectory(Config.FilePath);
         }
 
-        private void SetConfig(IConfiguration configuration)
+        public void SetConfig(IConfiguration configuration)
         {
             _configuration = configuration;
             if (_configuration != null && !string.IsNullOrWhiteSpace(_configuration["textdbpath"]))

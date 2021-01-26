@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace textDb
+namespace textDb.Base
 {
     public static class Create
     {
