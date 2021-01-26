@@ -6,10 +6,6 @@ namespace textDb.Tests
 {
     public class InsertTests
     {
-        public InsertTests(){
-            
-        }
-
         private void CleanDb(){
             Notepad.Delete<Student>();
         }

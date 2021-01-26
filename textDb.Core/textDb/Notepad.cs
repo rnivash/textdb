@@ -14,7 +14,7 @@ namespace textDb
         {
             Type entityType = typeof(T);
 
-            Create.InitFile(entityType);
+            //Create.InitFile(entityType);
 
             List<T> records = new List<T>();
 
@@ -65,7 +65,7 @@ namespace textDb
             }
 
             Type entityType = typeof(T);
-            Create.InitFile(entityType);
+            //Create.InitFile(entityType);
 
             PropertyInfo[] propertyInfos = entityType.GetProperties();
 

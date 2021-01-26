@@ -12,7 +12,7 @@ namespace textDb.Base
             FileStream fs = null;
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
                 using(StreamReader sr = new StreamReader(fs))
                 {
                     fs = null;

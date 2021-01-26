@@ -7,14 +7,14 @@ namespace textDb.Tests
 {
     public class ReadTests
     {
-        public ReadTests()
-        {
+        private void CleanDb(){
             Notepad.Delete<Student>();
         }
 
         [Fact]
         public void SelectEntityTest()
         {
+            CleanDb();
             var entity1 = new Student
             {
                 Name = "Darshan",

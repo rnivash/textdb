@@ -11,7 +11,7 @@ namespace textDb.Base
             FileStream fs = null;
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read);
+                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     fs = null;
@@ -36,7 +36,7 @@ namespace textDb.Base
             FileStream fs = null;
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read);
+                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     fs = null;

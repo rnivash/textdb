@@ -7,14 +7,14 @@ namespace textDb.Tests
 {
     public class DeleteTests
     {
-        public DeleteTests()
-        {
+        private void CleanDb(){
             Notepad.Delete<Student>();
         }
 
         [Fact]
         public void DeleteEntityTest()
         {
+            CleanDb();
             var entity1 = new Student
             {
                 Name = "Darshan",
@@ -36,6 +36,7 @@ namespace textDb.Tests
         [Fact]
         public void DeleteSpecificEntityTest()
         {
+            CleanDb();
             var entity1 = new Student
             {
                 Name = "Darshan",
@@ -64,6 +65,7 @@ namespace textDb.Tests
         [Fact]
         public void DeleteEntityFilterTest()
         {
+            CleanDb();
             var entity1 = new Student
             {
                 Name = "Darshan",
