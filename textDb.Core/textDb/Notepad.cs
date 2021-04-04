@@ -13,9 +13,6 @@ namespace textDb
         public static IList<T> Select<T>() where T : new()
         {
             Type entityType = typeof(T);
-
-            //Create.InitFile(entityType);
-
             List<T> records = new List<T>();
 
             Collection<string[]> rawRecords = Read.ReadData(entityType);
@@ -65,7 +62,6 @@ namespace textDb
             }
 
             Type entityType = typeof(T);
-            //Create.InitFile(entityType);
 
             PropertyInfo[] propertyInfos = entityType.GetProperties();
 

@@ -1,31 +1,39 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
+using System;
 
 namespace textDb
 {
     sealed class Engine
     {
-        private IConfiguration _configuration;
-
+      
         public Settings Config { get; }
 
         private Engine()
         {
+            
+            var configuration = new ConfigurationBuilder()
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appsettings.json")
+                                .Build();
+
             Config = new Settings
             {
                 FilePath =  System.IO.Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "textdb")
             };
+
+            SetConfig(configuration);
+
             Directory.CreateDirectory(Config.FilePath);
         }
 
-        public void SetConfig(IConfiguration configuration)
+        private void SetConfig(IConfiguration configuration)
         {
-            _configuration = configuration;
-            if (_configuration != null && !string.IsNullOrWhiteSpace(_configuration["textdbpath"]))
+            if (configuration != null && !string.IsNullOrWhiteSpace(configuration["textdbpath"]))
             {
-                Config.FilePath = _configuration["textdbpath"];
-                Directory.CreateDirectory(Config.FilePath);
+                Config.FilePath = configuration["textdbpath"];
             }
         }
 
