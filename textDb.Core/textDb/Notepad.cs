@@ -63,6 +63,8 @@ namespace textDb
 
             Type entityType = typeof(T);
 
+            Create.InitFile(entityType);
+
             PropertyInfo[] propertyInfos = entityType.GetProperties();
 
             List<string[]> records = new List<string[]>();

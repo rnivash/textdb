@@ -16,7 +16,7 @@ namespace textDb
             
             var configuration = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("appsettings.json")
+                                .AddJsonFile("appsettings.json", true)
                                 .Build();
 
             Config = new Settings
