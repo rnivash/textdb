@@ -3,7 +3,7 @@
     <metadata>
         <!-- Required elements-->
         <id>TextDB</id>
-        <version>3.2.0</version>
+        <version>4.0.0</version>
         <description>A simple database which writes data into text file. No setup or confiuration is required.</description>
         <authors>Nivash Ramachandran</authors>
 
@@ -12,7 +12,7 @@
         <license type="expression">MIT</license>
         <tags>database,csv,inline,db</tags>
         <dependencies>
-            <group targetFramework=".NETFramework4.7.2" />
+            <group targetFramework="net8.0" />
         </dependencies>
     </metadata>
     <!-- Optional 'files' node -->
