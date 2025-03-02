@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <PackageId>TextDB</PackageId>
+    <PackageVersion>4.0.0</PackageVersion>
+    <Description>A simple database which writes data into text file. No setup or confiuration is required.</Description>
+    <Authors>Nivash Ramachandran</Authors>
+    <PackageProjectUrl>https://github.com/rnivash/textdb</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>database,csv,inline,db</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
