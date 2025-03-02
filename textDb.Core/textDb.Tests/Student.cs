@@ -1,4 +1,5 @@
 ﻿using System;
+[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
 
 namespace textDb.Tests
 {

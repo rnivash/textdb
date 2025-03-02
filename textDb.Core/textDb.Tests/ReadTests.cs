@@ -7,8 +7,14 @@ namespace textDb.Tests
 {
     public class ReadTests
     {
+        private INotepad _note;
+        public ReadTests()
+        {
+            _note = new Notepad();
+
+        }
         private void CleanDb(){
-            Notepad.Delete<Student>();
+            _note.Delete<Student>();
         }
 
         [Fact]
@@ -32,10 +38,10 @@ namespace textDb.Tests
                 IsActive = true
             };
             IList<Student> studs = new List<Student>() { entity1, entity2 };
-            Notepad.Insert(studs);
+            _note.Insert(studs);
 
-            var list = Notepad.Select<Student>();
-            var list2 = Notepad.Select<Student>(stud => stud.Name == "Nivash");
+            var list = _note.Select<Student>();
+            var list2 = _note.Select<Student>(stud => stud.Name == "Nivash");
 
             Assert.Equal(2, list.Count);
             Assert.Equal("B", list2[0].Section);

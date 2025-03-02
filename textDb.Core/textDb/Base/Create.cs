@@ -3,16 +3,25 @@ using System.IO;
 
 namespace textDb.Base
 {
-    public static class Create
+    internal static class Create
     {
-        public static void InitFile(Type entityType)
+        internal static void InitFile(Type entityType)
         {
             string tableFullName = BaseFile.GetFullName(entityType);
 
             if (!File.Exists(tableFullName))
             {
-                FileStream fs = File.Create(tableFullName);
-                fs.Close();
+                try
+                {
+                    using (FileStream fs = File.Create(tableFullName))
+                    {
+                        // Optionally, you can write some initial content to the file here
+                    }
+                }
+                catch (IOException)
+                {
+                    // Handle the case where the file was created by another process
+                }
             }
         }
     }

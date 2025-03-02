@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace textDb.Base
 {
-    public static class BaseFile
+    internal static class BaseFile
     {
         private const string DbExtension = ".db1";
 
@@ -40,7 +40,7 @@ namespace textDb.Base
             string.Concat(p.Name, ":", p.PropertyType.Name)))).GetDeterministicHashCode();
         }
 
-        public static string GetFullName(Type entityType)
+        internal static string GetFullName(Type entityType)
         {
             if (entityType is null)
             {
@@ -51,12 +51,12 @@ namespace textDb.Base
                 "{0}.{1}{2}", entityType.Name, GetId(entityType), DbExtension));
         }
 
-        public static string Encode(string[] values)
+        internal static string Encode(string[] values)
         {
             return string.Join(Comma, values.Select(item => item?.Replace(Comma, CommaSeparator)));
         }
 
-        public static string[] Decode(string value)
+        internal static string[] Decode(string value)
         {
             if (value is null)
             {

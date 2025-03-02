@@ -7,8 +7,14 @@ namespace textDb.Tests
 {
     public class DeleteTests
     {
+        private INotepad _note;
+        public DeleteTests()
+        {
+            _note = new Notepad();
+
+        }
         private void CleanDb(){
-            Notepad.Delete<Student>();
+            _note.Delete<Student>();
         }
 
         [Fact]
@@ -24,11 +30,11 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            Notepad.Insert(entity1);
+            _note.Insert(entity1);
 
-            Notepad.Delete<Student>();
+            _note.Delete<Student>();
 
-            var list = Notepad.Select<Student>();
+            var list = _note.Select<Student>();
 
             Assert.Equal(0, list.Count);
         }
@@ -52,11 +58,11 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            Notepad.Insert<Student>(new List<Student> { entity1, entity2 });
+            _note.Insert<Student>(new List<Student> { entity1, entity2 });
 
-            Notepad.Delete<Student>(entity1);
+            _note.Delete<Student>(entity1);
 
-            var list = Notepad.Select<Student>();
+            var list = _note.Select<Student>();
 
             Assert.Equal(1, list.Count);
             Assert.Equal("Nivash", list[0].Name);
@@ -81,11 +87,11 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            Notepad.Insert<Student>(new List<Student> { entity1, entity2 });
+            _note.Insert<Student>(new List<Student> { entity1, entity2 });
 
-            Notepad.Delete<Student>(std => std.Name == "Nivash" && std.Age == 34);
+            _note.Delete<Student>(std => std.Name == "Nivash" && std.Age == 34);
 
-            var list = Notepad.Select<Student>();
+            var list = _note.Select<Student>();
 
             Assert.Equal(1, list.Count);
             Assert.Equal("Darshan", list[0].Name);

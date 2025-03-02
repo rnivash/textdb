@@ -4,52 +4,61 @@ using System.IO;
 
 namespace textDb.Base
 {
-    public static class Write
+    internal static class Write
     {
-        public static void WriteData(Type entityType, string[] values)
+        internal static void WriteData(Type entityType, string[] values)
         {
-            FileStream fs = null;
+            int retryCount = 3;
+            int delay = 1000; // 1 second delay
+
+            for (int i = 0; i < retryCount; i++)
+            {
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read);
-                using (StreamWriter sw = new StreamWriter(fs))
+                using (var fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read))
+                using (var sw = new StreamWriter(fs))
                 {
-                    fs = null;
-                    sw.WriteLine(BaseFile.Encode(values));
+                sw.WriteLine(BaseFile.Encode(values));
                 }
+                break; // Exit the loop if successful
             }
-            finally
+            catch (IOException) when (i < retryCount - 1)
             {
-                if (fs != null)
-                    fs.Dispose();
+                // Log the exception or handle it as needed
+                System.Threading.Thread.Sleep(delay); // Wait before retrying
             }
-            
+            }
         }
 
-        public static void WriteData(Type entityType, IList<string[]> values)
+        internal static void WriteData(Type entityType, IList<string[]> values)
         {
             if (values is null)
             {
-                throw new ArgumentNullException(nameof(values));
+            throw new ArgumentNullException(nameof(values));
             }
 
-            FileStream fs = null;
+            int retryCount = 3;
+            int delay = 1000; // 1 second delay
+
+            for (int i = 0; i < retryCount; i++)
+            {
             try
             {
-                fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read);
-                using (StreamWriter sw = new StreamWriter(fs))
+                using (var fs = new FileStream(BaseFile.GetFullName(entityType), FileMode.Append, FileAccess.Write, FileShare.Read))
+                using (var sw = new StreamWriter(fs))
                 {
-                    fs = null;
-                    foreach (string[] lin in values)
-                    {
-                        sw.WriteLine(BaseFile.Encode(lin));
-                    }
+                foreach (var line in values)
+                {
+                    sw.WriteLine(BaseFile.Encode(line));
                 }
+                }
+                break; // Exit the loop if successful
             }
-            finally
+            catch (IOException) when (i < retryCount - 1)
             {
-                if (fs != null)
-                    fs.Dispose();
+                // Log the exception or handle it as needed
+                System.Threading.Thread.Sleep(delay); // Wait before retrying
+            }
             }
         }
     }
