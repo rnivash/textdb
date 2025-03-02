@@ -1,2 +1,0 @@
-nuget pack textDB.csproj
-nuget push TextDB.3.2.0.nupkg -Source https://api.nuget.org/v3/index.json
