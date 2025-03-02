@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xunit;
-using textDb;
 
 namespace textDb.Tests
 {
@@ -36,7 +35,7 @@ namespace textDb.Tests
 
             var list = _note.Select<Student>();
 
-            Assert.Equal(0, list.Count);
+            Assert.Empty(list);
         }
 
         [Fact]
@@ -64,7 +63,7 @@ namespace textDb.Tests
 
             var list = _note.Select<Student>();
 
-            Assert.Equal(1, list.Count);
+            Assert.Single(list);
             Assert.Equal("Nivash", list[0].Name);
         }
 
@@ -93,7 +92,7 @@ namespace textDb.Tests
 
             var list = _note.Select<Student>();
 
-            Assert.Equal(1, list.Count);
+            Assert.Single(list);
             Assert.Equal("Darshan", list[0].Name);
         }
     }

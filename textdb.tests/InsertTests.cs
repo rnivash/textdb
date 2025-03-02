@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-using textDb;
 
 namespace textDb.Tests
 {
@@ -35,7 +34,7 @@ namespace textDb.Tests
 
             var list = _note.Select<Student>();
 
-            Assert.Equal(1, list.Count);
+            Assert.Single(list);
             Assert.Equal("Darshan", list[0].Name);
             Assert.Equal(13, list[0].Age);
             Assert.Equal("A", list[0].Section);
@@ -61,7 +60,7 @@ namespace textDb.Tests
 
             var list = _note.Select<Student>();
 
-            Assert.Equal(1, list.Count);
+            Assert.Single(list);
             Assert.Equal("Darshan", list[0].Name);
             Assert.Equal("", list[0].Section);
         }
@@ -88,7 +87,7 @@ namespace textDb.Tests
 
             _note.Update<Student>(itm, key => key.Name == itm.Name);
 
-            Assert.Equal(1, list.Count);
+            Assert.Single(list);
             Assert.Equal("B", list[0].Section);
         }
     }

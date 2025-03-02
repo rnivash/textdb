@@ -11,7 +11,6 @@ namespace textDb.Tests
         public ReadTests()
         {
             _note = new Notepad();
-
         }
         private void CleanDb(){
             _note.Delete<Student>();
@@ -45,7 +44,7 @@ namespace textDb.Tests
 
             Assert.Equal(2, list.Count);
             Assert.Equal("B", list2[0].Section);
-            Assert.Equal(1, list2.Count);
+            Assert.Single(list2);
 
         }
     }
