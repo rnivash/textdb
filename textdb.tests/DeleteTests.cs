@@ -58,7 +58,7 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            _note.Insert(new List<Student> { entity1, entity2 });
+            _note.Insert<Student>(new List<Student> { entity1, entity2 });
             _note.Delete(entity1);
 
             var list = _note.Select<Student>();
@@ -86,7 +86,7 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            _note.Insert(new List<Student> { entity1, entity2 });
+            _note.Insert<Student>(new List<Student> { entity1, entity2 });
             _note.Delete<Student>(std => std.Name == "Nivash" && std.Age == 34);
 
             var list = _note.Select<Student>();
