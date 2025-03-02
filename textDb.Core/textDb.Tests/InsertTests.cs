@@ -6,8 +6,15 @@ namespace textDb.Tests
 {
     public class InsertTests
     {
+        private INotepad _note;
+        public InsertTests()
+        {
+            _note = new Notepad();
+
+        }
+
         private void CleanDb(){
-            Notepad.Delete<Student>();
+            _note.Delete<Student>();
         }
 
         [Fact]
@@ -24,9 +31,9 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            Notepad.Insert(entity1);
+            _note.Insert(entity1);
 
-            var list = Notepad.Select<Student>();
+            var list = _note.Select<Student>();
 
             Assert.Equal(1, list.Count);
             Assert.Equal("Darshan", list[0].Name);
@@ -50,9 +57,9 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            Notepad.Insert(entity1);
+            _note.Insert(entity1);
 
-            var list = Notepad.Select<Student>();
+            var list = _note.Select<Student>();
 
             Assert.Equal(1, list.Count);
             Assert.Equal("Darshan", list[0].Name);
@@ -72,14 +79,14 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            Notepad.Insert(entity1);
+            _note.Insert(entity1);
 
-            var list = Notepad.Select<Student>();
+            var list = _note.Select<Student>();
 
             var itm = list[0];
             itm.Section = "B";
 
-            Notepad.Update<Student>(itm, key => key.Name == itm.Name);
+            _note.Update<Student>(itm, key => key.Name == itm.Name);
 
             Assert.Equal(1, list.Count);
             Assert.Equal("B", list[0].Section);

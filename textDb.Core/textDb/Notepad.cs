@@ -8,9 +8,21 @@ using textDb.Base;
 
 namespace textDb
 {
-    public static class Notepad
+    public interface INotepad
     {
-        public static IList<T> Select<T>() where T : new()
+        void Delete<T>();
+        void Delete<T>(T object1) where T : new();
+        void Delete<T>(Predicate<T> filter) where T : new();
+        void Insert<T>(T entity);
+        void Insert<T>(IList<T> entities);
+        IList<T> Select<T>() where T : new();
+        IList<T> Select<T>(Predicate<T> filter) where T : new();
+        void Update<T>(T object1, Predicate<T> filter) where T : new();
+    }
+
+    public class Notepad : INotepad
+    {
+        public IList<T> Select<T>() where T : new()
         {
             Type entityType = typeof(T);
             List<T> records = new List<T>();
@@ -40,7 +52,7 @@ namespace textDb
             return records;
         }
 
-        public static IList<T> Select<T>(Predicate<T> filter) where T : new()
+        public IList<T> Select<T>(Predicate<T> filter) where T : new()
         {
             var records = Select<T>();
 
@@ -49,12 +61,12 @@ namespace textDb
                 .ToList();
         }
 
-        public static void Insert<T>(T entity)
+        public void Insert<T>(T entity)
         {
             Insert<T>(new List<T>() { entity });
         }
 
-        public static void Insert<T>(IList<T> entities)
+        public void Insert<T>(IList<T> entities)
         {
             if (entities is null)
             {
@@ -74,10 +86,12 @@ namespace textDb
                 string[] row = new string[propertyInfos.Length];
                 foreach (PropertyInfo propertyInfo in propertyInfos)
                 {
-                    if(propertyInfo.PropertyType == typeof(DateTime) ){
-                        row[j++] =  ((DateTime)propertyInfo.GetValue(entity, null)).ToString("MM/dd/yyyy HH:mm:ss.fffffffzzz");
+                    if (propertyInfo.PropertyType == typeof(DateTime))
+                    {
+                        row[j++] = ((DateTime)propertyInfo.GetValue(entity, null)).ToString("MM/dd/yyyy HH:mm:ss.fffffffzzz");
                     }
-                    else{
+                    else
+                    {
                         row[j++] = propertyInfo.GetValue(entity, null)?.ToString();
                     }
                 }
@@ -87,19 +101,19 @@ namespace textDb
             Write.WriteData(entityType, records);
         }
 
-        public static void Delete<T>()
+        public void Delete<T>()
         {
             Type entityType = typeof(T);
             Base.Delete.DeleteFile(entityType);
         }
 
-        public static void Delete<T>(T object1) where T : new()
+        public void Delete<T>(T object1) where T : new()
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
             Base.Delete.DeleteFile(entityType);
             PropertyInfo[] pinfo = entityType.GetProperties();
-            
+
             foreach (T newT in deleteList)
             {
                 bool add = false;
@@ -118,7 +132,7 @@ namespace textDb
             }
         }
 
-        public static void Delete<T>(Predicate<T> filter) where T : new()
+        public void Delete<T>(Predicate<T> filter) where T : new()
         {
             Type entityType = typeof(T);
             IList<T> deleteList = Select<T>();
@@ -135,7 +149,7 @@ namespace textDb
             }
         }
 
-        public static void Update<T>(T object1, Predicate<T> filter) where T : new()
+        public void Update<T>(T object1, Predicate<T> filter) where T : new()
         {
             Type entityType = typeof(T);
             IList<T> updateList = Select(filter);
