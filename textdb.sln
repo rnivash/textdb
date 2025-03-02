@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "textDb.Core", "textDb.Core", "{D6124F3F-528B-4E1A-89DA-180E63D1D6A3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "textdb", "textdb", "{D6124F3F-528B-4E1A-89DA-180E63D1D6A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDb", "textDb\textDb.csproj", "{DFAE937A-F54A-4B3F-8641-62E3373A6163}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textdb", "textdb\textdb.csproj", "{DFAE937A-F54A-4B3F-8641-62E3373A6163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textDb.Tests", "textDb.Tests\textDb.Tests.csproj", "{A3B79BCF-95CD-4E31-9C3B-316BCC229FD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "textdb.tests", "textdb.tests\textdb.tests.csproj", "{A3B79BCF-95CD-4E31-9C3B-316BCC229FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
