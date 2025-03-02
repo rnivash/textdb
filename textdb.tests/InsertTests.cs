@@ -6,13 +6,14 @@ namespace textDb.Tests
     public class InsertTests
     {
         private INotepad _note;
+
         public InsertTests()
         {
             _note = new Notepad();
-
         }
 
-        private void CleanDb(){
+        private void CleanDb()
+        {
             _note.Delete<Student>();
         }
 
@@ -40,13 +41,13 @@ namespace textDb.Tests
             Assert.Equal("A", list[0].Section);
             Assert.Equal(entity1.CreatedOn, list[0].CreatedOn);
             Assert.True(list[0].IsActive);
-
         }
 
         [Fact]
         public void InsertEntityWithNullValueTest()
         {
             CleanDb();
+
             var entity1 = new Student
             {
                 Name = "Darshan",
@@ -69,6 +70,7 @@ namespace textDb.Tests
         public void UpdateEntityTest()
         {
             CleanDb();
+
             var entity1 = new Student
             {
                 Name = "Darshan",
@@ -89,6 +91,15 @@ namespace textDb.Tests
 
             Assert.Single(list);
             Assert.Equal("B", list[0].Section);
+        }
+
+        public class Student
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public string Section { get; set; }
+            public DateTime CreatedOn { get; set; }
+            public bool IsActive { get; set; }
         }
     }
 }

@@ -7,12 +7,14 @@ namespace textDb.Tests
     public class DeleteTests
     {
         private INotepad _note;
+
         public DeleteTests()
         {
             _note = new Notepad();
-
         }
-        private void CleanDb(){
+
+        private void CleanDb()
+        {
             _note.Delete<Student>();
         }
 
@@ -30,7 +32,6 @@ namespace textDb.Tests
             };
 
             _note.Insert(entity1);
-
             _note.Delete<Student>();
 
             var list = _note.Select<Student>();
@@ -57,9 +58,8 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            _note.Insert<Student>(new List<Student> { entity1, entity2 });
-
-            _note.Delete<Student>(entity1);
+            _note.Insert(new List<Student> { entity1, entity2 });
+            _note.Delete(entity1);
 
             var list = _note.Select<Student>();
 
@@ -86,14 +86,22 @@ namespace textDb.Tests
                 IsActive = true
             };
 
-            _note.Insert<Student>(new List<Student> { entity1, entity2 });
-
+            _note.Insert(new List<Student> { entity1, entity2 });
             _note.Delete<Student>(std => std.Name == "Nivash" && std.Age == 34);
 
             var list = _note.Select<Student>();
 
             Assert.Single(list);
             Assert.Equal("Darshan", list[0].Name);
+        }
+
+        public class Student
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public string Section { get; set; }
+            public DateTime CreatedOn { get; set; }
+            public bool IsActive { get; set; }
         }
     }
 }

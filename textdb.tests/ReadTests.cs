@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xunit;
-using textDb;
 
 namespace textDb.Tests
 {
     public class ReadTests
     {
         private INotepad _note;
+
         public ReadTests()
         {
             _note = new Notepad();
         }
-        private void CleanDb(){
+
+        private void CleanDb()
+        {
             _note.Delete<Student>();
         }
 
@@ -36,7 +38,7 @@ namespace textDb.Tests
                 CreatedOn = DateTime.Now,
                 IsActive = true
             };
-            IList<Student> studs = new List<Student>() { entity1, entity2 };
+            IList<Student> studs = new List<Student> { entity1, entity2 };
             _note.Insert(studs);
 
             var list = _note.Select<Student>();
@@ -45,7 +47,15 @@ namespace textDb.Tests
             Assert.Equal(2, list.Count);
             Assert.Equal("B", list2[0].Section);
             Assert.Single(list2);
+        }
 
+        public class Student
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public string Section { get; set; }
+            public DateTime CreatedOn { get; set; }
+            public bool IsActive { get; set; }
         }
     }
 }
